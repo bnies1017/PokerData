@@ -1,5 +1,5 @@
 # Data
-data/*
+*.csv
 
 # idea
 .idea
