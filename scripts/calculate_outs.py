@@ -13,21 +13,33 @@ def flush_outs(hole, board):
 
 def max_connectors(hole, board):
     hand = hole + board
-    ranks = [Card.get_rank_int(card) for card in hand]
-    rank_counts = Counter(ranks)
-    n = 0
-    n_max = 0
-    for key in [12] + rank_counts.keys():
-        if rank_counts[key] > 0:
+    unique_ranks = list(set([Card.get_rank_int(card) for card in hand]))
+    if 12 in unique_ranks:
+        unique_ranks.insert(0,-1)
+    n = 1
+    n_max = 1
+    for i in range(len(unique_ranks) - 1):
+        if unique_ranks[i] == unique_ranks[i + 1]-1:
             n += 1
+            n_max = max(n, n_max)
         else:
-            n = 0
-        n_max = max(n, n_max)
+            n = 1
     return n_max
 
 
 def straight_outs(hole, board):
     hand = hole + board
+    unique_ranks = list(set([Card.get_rank_int(card) for card in hand]))
+    if 12 in unique_ranks:
+        unique_ranks.insert(0, -1)
+    n = 1
+    n_max = 1
+    for i in range(len(unique_ranks) - 1):
+        if unique_ranks[i] == unique_ranks[i + 1] - 1:
+            n += 1
+            n_max = max(n, n_max)
+        else:
+            n = 1
 
 
 
